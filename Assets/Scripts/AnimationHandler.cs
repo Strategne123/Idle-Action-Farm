@@ -1,40 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class AnimationHandler : MonoBehaviour
 {
     private Animator _animator;
+    private static AnimationHandler _instance;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-    }
-    private void Update()
-    {
-        if(JoystickHandler.Direction==Vector2.zero)
+        if(_instance == null)
         {
-            Play(States.Idle);
+            _instance = this;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Movement();
+    }
+
+    private void Movement()
+    {
+        if (JoystickHandler.Direction != Vector2.zero)
+        {
+            Play(States.Run);
         }
         else
         {
-            Play(States.Run);
+            Play(States.Idle);
         }
     }
 
     private void Play(States state)
-    {
-        if (!_animator.GetCurrentAnimatorStateInfo(0).IsName(state.ToString()))
+    {  
+        if (_animator.GetInteger("State") != (int)state)
         {
-            print("Start " + state.ToString());
             _animator.SetInteger("State", (int)state);
         }
+    }
+
+    public static void Mow()
+    {
+        _instance.Play(States.Mow);
     }
 
     enum States
     {
         Idle,
-        Run
+        Run,
+        Mow
     }
 }

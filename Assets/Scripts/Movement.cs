@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -38,6 +36,8 @@ public class Movement : MonoBehaviour
     {
         if(Vector3.Angle(direction,Vector3.forward)>0)
         {
+            direction.y = _characterController.center.y;
+            Debug.DrawLine(direction,direction);
             var newDirection = Vector3.RotateTowards(transform.forward, direction, _rotationSpeed, 0);
             transform.rotation = Quaternion.LookRotation(newDirection);
         }
