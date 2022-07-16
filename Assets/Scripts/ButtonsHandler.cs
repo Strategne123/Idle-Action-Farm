@@ -8,4 +8,9 @@ public class ButtonsHandler : MonoBehaviour
     {
         _actionHandler.Mow();
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }

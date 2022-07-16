@@ -1,10 +1,12 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 using System.Collections.Generic;
 
 [CustomEditor (typeof(SoundController))]
 public class SoundControllerEditor : Editor
 {
+
     private List<AudioClip> _clips;
 
     [System.Obsolete]
@@ -12,6 +14,7 @@ public class SoundControllerEditor : Editor
     {
         var mySoundController = (SoundController)target;
         _clips = mySoundController._clips;
+
         EditorGUILayout.BeginVertical();
         if(_clips.Count==0)
         {
@@ -30,4 +33,6 @@ public class SoundControllerEditor : Editor
         EditorUtility.SetDirty(mySoundController);
         //DrawDefaultInspector();
     }
+
 }
+#endif
