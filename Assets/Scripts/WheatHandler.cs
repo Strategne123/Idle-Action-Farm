@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WheatHandler : MonoBehaviour
@@ -11,6 +10,9 @@ public class WheatHandler : MonoBehaviour
     private float _currentHeight;
     private Material _material;
     private bool _canMow=true;
+
+    [SerializeField] GameObject _hay;
+    [SerializeField] Transform _hayStart;
 
     private void Start()
     {
@@ -40,11 +42,19 @@ public class WheatHandler : MonoBehaviour
         }
     }
 
+    private void CreateHay()
+    {
+        var hay = Instantiate(_hay);
+        var delta = new Vector3(Random.value - 0.5f, Random.value - 0.5f, Random.value - 0.5f);
+        hay.transform.position = _hayStart.position + delta;
+    }
+
     private IEnumerator Recharge()
     {
         _canMow = false;
         yield return new WaitForSeconds(0.7f);
         _currentHeight -= MAX_HEIGHT / CUT_NUM;
+        CreateHay();
         _canMow = true;
     }
     

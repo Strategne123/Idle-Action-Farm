@@ -7,9 +7,6 @@ public class ActionHandler : MonoBehaviour
     [SerializeField] private GameObject _scythe;
     [SerializeField] private Transform _stackPos;
     private List<GameObject> _hayStacks = new List<GameObject>();
-
-
-
     public void Mow()
     {
         Invoke("MowStart", 0.3f);

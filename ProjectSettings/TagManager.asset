@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Scythe
   - Hay
+  - Ground
   layers:
   - Default
   - TransparentFX
